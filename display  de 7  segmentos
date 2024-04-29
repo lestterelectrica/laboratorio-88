@@ -1,0 +1,49 @@
+// Definir pines para cada segmento del display
+const int segmentos[] = {2, 3, 4, 5, 6, 7, 8};
+const int totalSegmentos = 7;
+
+// Definir los patrones para cada número (área de almacenamiento en memoria)
+const byte numeros[10][7] = {
+  {0, 0, 0, 0, 0, 0, 1}, // 0
+  {1, 0, 0, 1, 1, 1, 1}, // 1
+  {0, 0, 1, 0, 0, 1, 0}, // 2
+  {0, 0, 0, 0, 1, 1, 0}, // 3
+  {1, 0, 0, 1, 1, 0, 0}, // 4
+  {0, 1, 0, 0, 1, 0, 0}, // 5
+  {0, 1, 0, 0, 0, 0, 0}, // 6
+  {0, 0, 0, 1, 1, 1, 1}, // 7
+  {0, 0, 0, 0, 0, 0, 0}, // 8
+  {0, 0, 0, 1, 1, 0, 0}  // 9
+};
+
+// Definir constantes para los pines
+const int PIN_A = 2;
+const int PIN_B = 3;
+const int PIN_C = 4;
+const int PIN_D = 5;
+const int PIN_E = 6;
+const int PIN_F = 7;
+const int PIN_G = 8;
+
+void setup() {
+  // Configurar los pines de los segmentos como salida
+  for (int i = 0; i < totalSegmentos; i++) {
+    pinMode(segmentos[i], OUTPUT);
+    digitalWrite(segmentos[i], HIGH); // Iniciar con todos los segmentos apagados
+  }
+}
+
+void loop() {
+  for (int i = 0; i < 10; i++) {
+    mostrarNumero(i);
+    delay(1000); // Esperar un segundo
+  }
+}
+
+// Función para mostrar un número en el display
+void mostrarNumero(int numero) {
+  // Encender los segmentos correspondientes al número
+  for (int i = 0; i < totalSegmentos; i++) {
+    digitalWrite(segmentos[i], numeros[numero][i]); // Cátodo común
+  }
+}
